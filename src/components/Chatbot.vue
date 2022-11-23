@@ -3,6 +3,7 @@ import {onUpdated, ref, nextTick} from "vue";
   import ChatInput from './ChatInput.vue'
   import ApiService from "../ApiService.js";
   import Message from './Message.vue';
+  import {v4 as uuidv4} from "uuid";
 
   const loadingAnimation = ref(false);
   const messageStack = ref([]);
@@ -10,25 +11,36 @@ import {onUpdated, ref, nextTick} from "vue";
 
   onUpdated(() => {
     scrollToBottom();
-  })
+  });
+
+  if(!sessionStorage.getItem('sessionId')){
+    sessionStorage.setItem('sessionId', uuidv4());
+  } else {
+    ApiService.getDialogHistory()
+        .then((data) => {
+          for (const message of data){
+            if (message.question_de){
+              messageStack.value.push({'text': message.question_de, 'fromBot': false, 'count': message.count});
+            }
+            if (message.answer_de){
+              messageStack.value.push({'text': message.answer_de, 'fromBot': true, 'count': message.count});
+            }
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+  }
+
 
   async function sendQuestion(text){
     if (text){
-      messageStack.value.push({'text': text, 'fromBot': false})
-      await sleep(500);
+      const messageCount = messageStack.value.length;
+      messageStack.value.push({'text': text, 'fromBot': false, 'count': messageCount})
       loadingAnimation.value = true;
-      /*ApiService.postTest()
+      ApiService.postQuestion(text.replace('\n',''), "openAI", messageCount  )
           .then((answer) => {
-            messageStack.value.push({'text': answer, 'fromBot': true});
-            loadingAnimation.value = false;
-          })
-          .catch((e) => {
-            console.log(e);
-            loadingAnimation.value = false
-          });*/
-      ApiService.postQuestion(text, "openAI")
-          .then((answer) => {
-            messageStack.value.push({'text': answer, 'fromBot': true})
+            messageStack.value.push({'text': answer, 'fromBot': true, 'count': messageCount})
             loadingAnimation.value = false;
           })
           .catch((e) => {

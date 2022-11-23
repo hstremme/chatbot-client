@@ -1,17 +1,37 @@
 import axios from "axios";
 
 class ApiService{
-    static SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5050';
+    static SERVER_URL = 'http://localhost:5050'; // import.meta.env.VITE_SERVER_URL ||
+
+    // Get the dialog history
+    static getDialogHistory(){
+        const url = `${this.SERVER_URL}/api/session/dialog`
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.get(url,{
+                    params: {
+                        'sessionId': sessionStorage.getItem('sessionId')
+                    }
+                });
+                resolve(res.data)
+            } catch (e) {
+                console.log(e);
+                reject();
+            }
+        })
+    }
+
     // PostQuestion
-    static postQuestion (question, knowledgebase){
-        console.log(import.meta.env.VITE_SERVER_URL);
+    static postQuestion (question, knowledgebase, count){
         const url = `${this.SERVER_URL}/api/question`
         return new Promise(async (resolve, reject) => {
             try {
                 const res = await axios.post(
                     url,
                     {
-                        question
+                        question,
+                        'sessionId': sessionStorage.getItem('sessionId'),
+                        dialogCount: count
                     },
                     {
                         params: {
@@ -19,7 +39,7 @@ class ApiService{
                         }
                     }
                 );
-                resolve(res.data);
+                resolve(res.data.answer);
             } catch (e) {
                 reject(e);
             }
