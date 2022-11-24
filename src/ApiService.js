@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class ApiService{
-    static SERVER_URL = 'http://localhost:5050'; // import.meta.env.VITE_SERVER_URL ||
+    static SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5050';
 
     // Get the dialog history
     static getDialogHistory(){
