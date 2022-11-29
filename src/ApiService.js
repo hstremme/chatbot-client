@@ -39,32 +39,33 @@ class ApiService{
                         }
                     }
                 );
-                resolve(res.data.answer);
+                resolve(res.data);
             } catch (e) {
                 reject(e);
             }
         })
     }
 
-    // Test API
-    static postTest(){
-        const url = 'https://jsonplaceholder.typicode.com/posts'
-        return new Promise(async (resolve, reject) => {
+    // Get Reference
+    static getReferenceFromAzure(qnaId){
+        const url = `${this.SERVER_URL}/api/question`;
+        return new Promise(async (resolve, rejecet) => {
             try {
-                const res = await axios.post(url,
+                const res = await axios.post(
+                    url,
                     {
-                        title: 'fii',
-                        body: 'asdasd',
-                        userId: 1
+                        qnaId
                     },
                     {
-                        headers: {
-                            'Content-type': 'application/json; charset=UTF-8'
+                        params:{
+                            'kbase': 'azure'
                         }
-                    });
-                resolve("Das hier ist eine ganz lange antwort, bitte lass es endlich funktionieren")
+                    }
+                );
+                resolve(res.data);
             } catch (e) {
-                reject(e);
+                console.log(e);
+                rejecet(e);
             }
         })
     }

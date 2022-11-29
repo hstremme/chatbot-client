@@ -32,15 +32,14 @@ import {onUpdated, ref, nextTick} from "vue";
         });
   }
 
-
   async function sendQuestion(text){
     if (text){
       const messageCount = messageStack.value.length;
-      messageStack.value.push({'text': text, 'fromBot': false, 'count': messageCount})
+      messageStack.value.push({'text': text, 'fromBot': false, 'count': messageCount});
       loadingAnimation.value = true;
-      ApiService.postQuestion(text.replace('\n',''), "openAI", messageCount  )
-          .then((answer) => {
-            messageStack.value.push({'text': answer, 'fromBot': true, 'count': messageCount})
+      ApiService.postQuestion(text.replace('\n',''), "azure", messageCount)
+          .then((res) => {
+            messageStack.value.push({'text': res.answer, 'fromBot': true, 'count': messageCount, 'references': res.prompts});
             loadingAnimation.value = false;
           })
           .catch((e) => {
@@ -50,23 +49,46 @@ import {onUpdated, ref, nextTick} from "vue";
     }
   }
 
-  function scrollToBottom(){
+  async function getReference(refId){
+    loadingAnimation.value = true;
+    const messageCount = messageStack.value.length;
+    ApiService.getReferenceFromAzure(refId)
+        .then((res) => {
+          messageStack.value.push({'text': res.question, 'count': messageCount});
+          messageStack.value.push({'text': res.answer, 'fromBot': true, 'count': messageStack});
+          loadingAnimation.value = false;
+        })
+        .catch((e) => {
+          console.log(e);
+          loadingAnimation.value = false;
+        });
+  }
+
+
+function scrollToBottom(){
     const scrollHeight = scroller.value.scrollHeight;
     scroller.value.scrollTo(0, scrollHeight);
   }
 
-function sleep(ms) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-}
+  function sleep(ms) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
 </script>
 
 <template>
   <div class="chatbot-container">
     <div class="message-container" ref="scroller">
       <div class="scroll-container">
-        <Message v-for="message in messageStack" :text="message.text" :is-from-bot="message.fromBot" @loaded="scrollToBottom()"/>
+        <Message
+            v-for="message in messageStack"
+            :text="message.text"
+            :is-from-bot="message.fromBot"
+            :references="message.references"
+            @ref-requested="(refId) => getReference(refId)"
+            @loaded="scrollToBottom()"
+        />
       </div>
       <div class="animation-container" v-if="loadingAnimation">
         <div class="animation" >
