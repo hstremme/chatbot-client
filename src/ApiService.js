@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class ApiService{
-    static SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5050';
+    static SERVER_URL = 'http://localhost:5050';
 
     // Get the dialog history
     static getDialogHistory(){
@@ -39,9 +39,12 @@ class ApiService{
                         }
                     }
                 );
+                if (res.status === 208){
+                    return reject({code: 1, message: 'No fitting answer found.'})
+                }
                 resolve(res.data);
             } catch (e) {
-                reject(e);
+                reject({code: 2, message: e});
             }
         })
     }

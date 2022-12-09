@@ -1,36 +1,61 @@
+
+
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: black;
+  background-color: white;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --color-bg-lmode-main: #F8F9FB;
+  --color-bg-lmode-light: white;
+  --color-bg-lmode-dark: #C5C6C8;
+  --color-bg-lmode-blueish: #D2D6DE;
+
+  --color-bg-dmode-main: #1E293B;
+  --color-bg-dmode-light: #475165;
+  --color-bg-dmode-dark: #000016;
+  --color-bg-dmode-dark-alt: #192130;
+
+  --color-primary: #004488;
+  --color-primary-light: #496FB8;
+  --color-primary-light-alt: #61A9DD;
+  --color-primary-dark: #001E5A;
+
+  --color-secondary: #913D3B;
+  --color-secondary-light: #C56A65;
+  --color-secondary-light-alt: #EEB7B3;
+  --color-secondary-dark: #5F0F15;
+
+  scrollbar-color: var(--color-bg-lmode-blueish) var(--color-bg-lmode-main);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+::-webkit-scrollbar {
+  width: 8px;
 }
-a:hover {
-  color: #535bf2;
+::-webkit-scrollbar-track {
+  background: var(--color-bg-lmode-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-bg-lmode-blueish);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+a, .ref {
+  color: var(--color-primary);
+  text-decoration: underline;
 }
-a:hover {
-  color: #535bf2;
+a:hover, .ref:hover {
+  color: var(--color-primary-light);
+  cursor: pointer;
 }
 
 body {
@@ -39,52 +64,103 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  color: black;
 }
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: none;
   padding: 0.6em 1.2em;
   font-size: 1em;
-  font-weight: 500;
+  font-weight: 600;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-primary-light);
+  color: var(--color-bg-lmode-light);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background-color 0.25s;
+  width: fit-content;
 }
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  background-color: var(--color-primary);
 }
 
-.card {
-  padding: 2em;
+textarea {
+  border: none;
+  resize: none;
+  background-color: var(--color-bg-lmode-main);
+  box-shadow: black 0 0 8px -4px inset;
+  border-radius: 8px;
+  outline: none;
+  font-family: Arial, sans-serif;
+  padding: 8px;
+}
+
+.message {
+  background-color: var(--color-bg-lmode-main);
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px 0px;
+  border-radius: 8px;
+  padding: 8px 15px;
+  text-align: left;
+}
+.from-bot {
+  background-color: var(--color-bg-lmode-blueish);
+}
+
+.icon-btn{
+  display: flex;
+  place-content: center;
+  width: 35px;
+  height: 35px;
+  padding: 0;
+}
+.icon-btn>img{
+  margin: auto;
+  height: 18px;
+  color: var(--color-bg-lmode-light);
+}
+
+@media(prefers-color-scheme: dark){
+  :root{
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+    scrollbar-color: var(--color-bg-dmode-light) var(--color-bg-dmode-main);
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-dmode-main);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-bg-dmode-light);
+  }
+
+  button {
+    background-color: var(--color-bg-lmode-main);
+    color: var(--color-primary);
+  }
+  button:hover{
+    background-color: var(--color-bg-lmode-dark);
+  }
+
+  textarea {
+    background-color: var(--color-bg-dmode-light);
+  }
+
+  a, .ref {
+    color: var(--color-primary-light-alt);
+  }
+  a:hover, .ref:hover {
+    color: var(--color-primary-light);
+  }
+
+  .message {
+    background-color: var(--color-bg-dmode-light);
+  }
+  .from-bot {
+    background-color: var(--color-bg-dmode-dark);
+  }
 }
 
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
