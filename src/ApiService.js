@@ -39,9 +39,12 @@ class ApiService{
                         }
                     }
                 );
+                if (res.status === 208){
+                    return reject({code: 1, message: 'No fitting answer found.'})
+                }
                 resolve(res.data);
             } catch (e) {
-                reject(e);
+                reject({code: 2, message: e});
             }
         })
     }
