@@ -1,8 +1,8 @@
 {
   "welcomeText":
-          "Hallo, dies ist ein Chatbot, der Ihnen helfen soll, besser die 5G-Technologie zu verstehen.",
+          "Hallo! Dies ist ein Chatbot, der Ihnen Fragen zur 5G-Technologie beantworten kann. \n \n Falls Sie weitere Hilfe oder Informationen brauchen, klicken Sie auf das Fragezeichen oben rechts.",
   "helpText":
-          "Dieser Chatbot soll ihnen helfen, die 5G-Technologie besser zu verstehen. \n Dafür können Sie dem Chatbot einfach Fragen stellen, nutzen sie dafür das Eingabefeld unten. \nManche Antworten enthalten hervorgehobene Sätze oder Begriffe. Wenn Sie auf diese kicken, bekommen Sie weiterführende Informationen oder Erklärungen. \n ",
+          "Dieser Chatbot soll ihnen helfen, die 5G-Technologie besser zu verstehen.\n\nSie können dem Chatbot einfach Fragen stellen, nutzen sie dafür das Eingabefeld unten.\n\nManche Antworten enthalten hervorgehobene Sätze oder Begriffe. Wenn Sie auf diese kicken, bekommen Sie weiterführende Informationen oder Erklärungen.\n\nViele Antworten enthalten einen Link zur Quelle der ausgegebenen Informationen. Klicken Sie dafür auf ‚Quelle‘ in der Antwort.\n\nBitte beachten Sie, dass der Chatbot nur Fragen zur 5G-Technologie beantworten kann.\n\nDieser Chatbot wurde im Zuge einer Bachelorarbeit am Institut für multimediale und interaktive Systeme der Universität zu Lübeck entwickelt.",
   "noAnswerText":
           "Die Frage konnte nicht beantwortet werden. Das kann unterschiedliche Gründe habe: \n\n- der Chatbot kennt keine Antwort, die ihre Frage inhaltlich beantworten kann. \nStellen Sie eine Frage, mit einem anderen Inhalt. \n\n- der Chatbot hat die Frage nicht verstanden. \nVersuchen Sie die Frage umzuformulieren."
 }
