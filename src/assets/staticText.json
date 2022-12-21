@@ -1,0 +1,8 @@
+{
+  "welcomeText":
+          "Hallo, dies ist ein Chatbot, der Ihnen helfen soll, besser die 5G-Technologie zu verstehen.",
+  "helpText":
+          "Dieser Chatbot soll ihnen helfen, die 5G-Technologie besser zu verstehen. \n Dafür können Sie dem Chatbot einfach Fragen stellen, nutzen sie dafür das Eingabefeld unten. \nManche Antworten enthalten hervorgehobene Sätze oder Begriffe. Wenn Sie auf diese kicken, bekommen Sie weiterführende Informationen oder Erklärungen. \n ",
+  "noAnswerText":
+          "Die Frage konnte nicht beantwortet werden. Das kann unterschiedliche Gründe habe: \n\n- der Chatbot kennt keine Antwort, die ihre Frage inhaltlich beantworten kann. \nStellen Sie eine Frage, mit einem anderen Inhalt. \n\n- der Chatbot hat die Frage nicht verstanden. \nVersuchen Sie die Frage umzuformulieren."
+}

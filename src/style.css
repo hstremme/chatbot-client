@@ -49,13 +49,17 @@
   background: var(--color-bg-lmode-blueish);
 }
 
-a, .ref {
+a {
   color: var(--color-primary);
   text-decoration: underline;
 }
 a:hover, .ref:hover {
   color: var(--color-primary-light);
   cursor: pointer;
+}
+
+.ref {
+  text-decoration: underline var(--color-primary) dotted;
 }
 
 body {
@@ -99,9 +103,10 @@ textarea {
   background-color: var(--color-bg-lmode-main);
   box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px 0px;
   border-radius: 8px;
-  padding: 8px 15px;
+  padding: 15px 20px;
   text-align: left;
 }
+
 .from-bot {
   background-color: var(--color-bg-lmode-blueish);
 }
@@ -145,11 +150,15 @@ textarea {
     background-color: var(--color-bg-dmode-light);
   }
 
-  a, .ref {
+  a {
     color: var(--color-primary-light-alt);
   }
-  a:hover, .ref:hover {
+  a:hover, .ref:hover  {
     color: var(--color-primary-light);
+  }
+
+  .ref {
+    text-decoration-color: var(--color-primary-light-alt);
   }
 
   .message {

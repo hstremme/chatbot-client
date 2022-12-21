@@ -6,6 +6,7 @@ import {onUpdated, ref} from "vue";
   import LoadingAnimation from './LoadingAnimation.vue';
   import {v4 as uuidv4} from "uuid";
   import Popup from './Popup.vue';
+  import texts from '../assets/staticText.json';
 
   const messageStack = ref([]);
   const scroller = ref(null);
@@ -31,6 +32,12 @@ import {onUpdated, ref} from "vue";
     scrollToBottom();
   });
 
+  // displays a first welcome message
+  messageStack.value.push({
+    text: texts.welcomeText,
+    fromBot: true
+  });
+
   // Creates session id in session storage if there is none otherwise calls server to get messages send in this session
   if(!sessionStorage.getItem('sessionId')){
     sessionStorage.setItem('sessionId', uuidv4());
@@ -42,7 +49,13 @@ import {onUpdated, ref} from "vue";
               messageStack.value.push({'text': message.question_de, 'fromBot': false, 'count': message.count});
             }
             if (message.answer_de){
-              let data = {'text': message.answer_de, 'fromBot': true, 'count': message.count, references: message.prompt};
+              let data = {
+                'text': message.answer_de,
+                'fromBot': true,
+                'count': message.count,
+                references: message.prompt,
+                isNoAnswer: message.isNoAnswer,
+              };
               if (message.prompt){
                 data.prompt = message.prompt;
               }
@@ -125,11 +138,7 @@ import {onUpdated, ref} from "vue";
     isPopup.value = true;
     let imgSrc = '/src/assets/send_arrow.svg'
     popupContent.value =
-        `<p style="margin: 0px">Dieser Chatbot soll dabei helfen die 5G Technolgie besser zu verstehen.<br>
-         Sie können dem Chatbot Fragen stellen, nutzen Sie dafür das Eingabefeld unten um die Frage einzugeben.<br>
-         Mit <img style="display: inline; height: 12px" src="/src/assets/send_arrow_dmode.svg"/> oder der Eingabetaste
-         können Sie die Frage abschicken.
-         </p>`
+        `<p style="margin: 0px; text-align: justify">${texts.helpText}</p>`
   }
 
   /**
@@ -138,7 +147,7 @@ import {onUpdated, ref} from "vue";
   function displayNoAnswerHelp(){
     isPopup.value = true;
     popupContent.value =
-        `<p>Ihre Frage konnte nicht beantwortet werden, das kann verschiedenede Gründe haben.</p>
+        `<p>${texts.noAnswerText}</p>
         `
   }
 
@@ -240,6 +249,7 @@ import {onUpdated, ref} from "vue";
     display: flex;
     flex-direction: column;
     gap: 30px;
+    white-space: pre-line;
   }
   .header {
     background-color: var(--color-bg-lmode-main);
