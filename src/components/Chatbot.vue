@@ -138,7 +138,7 @@ import {onUpdated, ref} from "vue";
     isPopup.value = true;
     let imgSrc = '/src/assets/send_arrow.svg'
     popupContent.value =
-        `<p style="margin: 0px; text-align: justify">${texts.helpText}</p>`
+        `<p style="margin: 0px">${texts.helpText}</p>`
   }
 
   /**
