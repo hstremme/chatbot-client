@@ -21,6 +21,7 @@
     z-index: 5;
     height: 100%;
     width: 100%;
+    white-space: pre-line;
   }
   .content{
     display: flex;
