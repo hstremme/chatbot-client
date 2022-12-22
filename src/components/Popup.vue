@@ -35,7 +35,7 @@
     box-shadow: rgba(0, 0, 0, 0.25) 0 0 6px 2px;
     max-height: 80%;
     width: 70%;
-    overflow-y: scroll;
+    overflow-y: auto;
     scrollbar-color: var(--color-bg-dmode-light) var(--color-bg-lmode-blueish);
 
   }
