@@ -38,36 +38,6 @@ import {onUpdated, ref} from "vue";
     fromBot: true
   });
 
-  // Creates session id in session storage if there is none otherwise calls server to get messages send in this session
-  if(!sessionStorage.getItem('sessionId')){
-    sessionStorage.setItem('sessionId', uuidv4());
-  } else {
-    ApiService.getDialogHistory()
-        .then((data) => {
-          for (const message of data){
-            if (message.question_de){
-              messageStack.value.push({'text': message.question_de, 'fromBot': false, 'count': message.count});
-            }
-            if (message.answer_de){
-              let data = {
-                'text': message.answer_de,
-                'fromBot': true,
-                'count': message.count,
-                references: message.prompt,
-                isNoAnswer: message.isNoAnswer,
-              };
-              if (message.prompt){
-                data.prompt = message.prompt;
-              }
-              messageStack.value.push(data);
-            }
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-  }
-
   /**
    * Sends Question from user input to server and adds answer to message array
    * @param text the question from user input
